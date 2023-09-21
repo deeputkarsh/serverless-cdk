@@ -1,17 +1,24 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as ServerlessCdk from '../lib/serverless-cdk-stack';
+import { App } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { MainStack } from '../app/main-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/serverless-cdk-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new ServerlessCdk.ServerlessCdkStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+test('Api gateway created', () => {
+    const app = new App();
+    const stack = new MainStack(app, 'serverless-cdk', {});
+    const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+    template.hasResourceProperties('AWS::ApiGateway::RestApi', {
+        Name: 'serverless-cdk'
+    });
 });
+
+test('get lambda created', () => {
+    const app = new App();
+    const stack = new MainStack(app, 'serverless-cdk', {});
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::Lambda::Function', {
+        Handler: 'index.handler',
+        Runtime: 'nodejs18.x',
+        Timeout: 15
+    })
+})

@@ -1,8 +1,8 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/serverless-cdk.ts",
+  "app": "npx ts-node --prefer-ts-exts app/index.ts",
   "watch": {
     "include": [
-      "**"
+      "app/**"
     ],
     "exclude": [
       "README.md",
