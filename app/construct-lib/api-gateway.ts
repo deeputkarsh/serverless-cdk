@@ -51,15 +51,12 @@ export class ApiGateway extends Construct {
             let resourcePath = path
             const pathArray = path.split('/')
             if (pathArray.length > 1) {
-                console.log(pathArray)
                 resourcePath = pathArray.pop() as string
                 currentResource = this.getResource(pathArray.join('/'))
             }
             this.resources[resourceKey] = currentResource.addResource(resourcePath)
             currentResource = this.resources[resourceKey]
         }
-        console.log('this.resources', Object.values(this.resources).map(it => it.path))
-        console.log('path', path, 'currentResource', currentResource.path)
         return currentResource
     }
 

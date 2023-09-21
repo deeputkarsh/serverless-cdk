@@ -37,7 +37,6 @@ export class MyPipelineStack extends Stack {
         }),
         commands: [
           'npm ci',
-          'npm run build',
           'npx cdk synth',
         ],
       }),
